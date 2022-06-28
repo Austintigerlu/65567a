@@ -1,0 +1,2 @@
+1. I would use useEffect to get the data and store it using useState. I would use either axios or fetch() to make the API request. I would make the API call in place of importing the JSON file. I would also need to consider what components need this data. I would probably use redux or flux to better optimize my application.
+2. The Nano ID is not consistent among all renders. A stable key should be used for the key.
