@@ -14,11 +14,13 @@ function Pagination({
   currentPage,
   pageSize,
   pageSizeOptions,
+  siblingCount = 1
 }) {
   const paginationRange = usePagination({
     currentPage,
     totalCount,
     pageSize,
+    siblingCount
   });
 
   const onNext = () => {
@@ -28,6 +30,8 @@ function Pagination({
   const onPrevious = () => {
     onPageChange(currentPage - 1);
   };
+  
+  let lastPage = paginationRange[paginationRange.length-1];
 
   return (
     <ul
@@ -42,7 +46,7 @@ function Pagination({
           // Do not remove the aria-label below, it is used for Hatchways automation.
           aria-label="Goto previous page"
           onClick={onPrevious}
-          disabled={false} // change this line to disable a button.
+          disabled={currentPage === 1} // change this line to disable a button.
         >
           <ChevronLeftIcon />
         </button>
@@ -50,7 +54,6 @@ function Pagination({
 
       {paginationRange.map((pageNumber) => {
         const key = nanoid();
-
         if (pageNumber === DOTS) {
           return (
             <li key={key} className="dots">
@@ -63,7 +66,7 @@ function Pagination({
           <li
             key={key}
             className="paginationItem"
-            aria-current="true" // change this line to highlight a current page.
+            aria-current={currentPage === pageNumber ? "page" : "false"} // change this line to highlight a current page.
           >
             <button
               type="button"
@@ -84,7 +87,7 @@ function Pagination({
           // Do not remove the aria-label below, it is used for Hatchways automation.
           aria-label="Goto next page"
           onClick={onNext}
-          disabled={false} // change this line to disable a button.
+          disabled={currentPage === lastPage} // change this line to disable a button.
         >
           <ChevronRightIcon />
         </button>
@@ -96,7 +99,7 @@ function Pagination({
         aria-label="Select page size"
         value={pageSize}
         onChange={(e) => {
-          onPageSizeOptionChange(e.target.value);
+          onPageSizeOptionChange(parseInt(e.target.value));
         }}
       >
         {pageSizeOptions.map((size) => (
