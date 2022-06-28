@@ -37,11 +37,11 @@ function usePagination({
     const lastIndex = totalPageCount;
 
     if(!leftDots && rightDots){
-      let leftItemCount = 3 + 2 * siblingCount;
+      let leftItemCount = 3 * siblingCount;
       let leftRange = range(1, leftItemCount);
       return [...leftRange, DOTS, totalPageCount];
     } else if (leftDots && !rightDots){
-      let rightItemCount = 3 + 2 * siblingCount;
+      let rightItemCount =  3 * siblingCount;
       let rightRange = range(totalPageCount - rightItemCount + 1, totalPageCount);
       return [firstIndex, DOTS, ...rightRange];
     } else {
