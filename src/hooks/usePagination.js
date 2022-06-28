@@ -9,22 +9,27 @@ function usePagination({
   currentPage
 }) {
 
+  // function to get the length and set start and end values
   function range(start,end){
     let length = end - start + 1;
     return Array.from({length}, (_, i) => i + start);
   }
 
   const paginationRange =useMemo(()=>{
+    // calculates total pages
     const totalPageCount = Math.ceil(totalCount/pageSize);
     const totalPageNumbers = siblingCount + 5;
 
+    // if number of pages is less than page numbers return range [1...page count]
     if (totalPageNumbers >= totalPageCount){
       return range(1, totalPageCount);
     }
 
+    // left and right index calulation
     const leftIndex = Math.max(currentPage - siblingCount, 1);
     const rightIndex = Math.min(currentPage + siblingCount, totalPageCount);
 
+    // where we need dots
     const leftDots = leftIndex > 2;
     const rightDots = rightIndex < totalPageCount - 2;
 
