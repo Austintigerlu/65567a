@@ -9,9 +9,9 @@ function BlogList() {
   const [pageSize, setPageSize] = useState(15)
   const [currentPage, setCurrentPage] = useState(1);
   const currentPaginationData = useMemo(()=> {
-    const firstIndex = (currentPage - 1) * pageSize;
-    const lastIndex = firstIndex + pageSize;
-    return blogs.posts.slice(firstIndex, lastIndex)
+    const firstBlogItem = (currentPage - 1) * pageSize;
+    const lastBlogItem = firstBlogItem + pageSize;
+    return blogs.posts.slice(firstBlogItem, lastBlogItem)
   }, [currentPage, pageSize]);
 
   const updateRowsPerPage = (e) => {setPageSize(e)};
@@ -21,6 +21,7 @@ function BlogList() {
     <div>
       <Pagination
         currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
         totalCount={blogs.posts.length}
         pageSize={pageSize}
         pageSizeOptions={PAGE_SIZES}

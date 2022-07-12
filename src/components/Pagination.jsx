@@ -12,6 +12,7 @@ function Pagination({
   onPageSizeOptionChange,
   totalCount,
   currentPage,
+  setCurrentPage,
   pageSize,
   pageSizeOptions,
   siblingCount = 1
@@ -100,6 +101,7 @@ function Pagination({
         value={pageSize}
         onChange={(e) => {
           onPageSizeOptionChange(parseInt(e.target.value));
+          setCurrentPage(1);
         }}
       >
         {pageSizeOptions.map((size) => (
